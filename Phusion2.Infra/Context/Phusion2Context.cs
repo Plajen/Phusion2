@@ -8,14 +8,11 @@ namespace Phusion2.Infra.Context
 {
     public sealed class Phusion2Context : DbContext
     {
-        public IHostingEnvironment Environment { get; set; }
-
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Profession> Profession { get; set; }
 
-        public Phusion2Context(IHostingEnvironment environment)
+        public Phusion2Context(DbContextOptions options) : base(options)
         {
-            Environment = environment;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

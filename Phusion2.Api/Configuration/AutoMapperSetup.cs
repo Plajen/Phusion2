@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 using Phusion2.Application.AutoMapper;
 using System;
 
@@ -10,7 +11,7 @@ namespace Phusion2.Api.Configuration
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
 
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper();
 
             AutoMapperConfig.RegisterMappings();
         }

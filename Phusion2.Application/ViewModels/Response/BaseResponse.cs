@@ -4,6 +4,7 @@ using Phusion2.Domain.Core.Notifications;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Phusion2.Application.ViewModels.Response
@@ -39,9 +40,10 @@ namespace Phusion2.Application.ViewModels.Response
         public bool ShouldSerializeData() => Success;
         public bool ShouldSerializeErrors() => !Success;
 
-        public Task ExecuteResultAsync(ActionContext context)
+        public async Task ExecuteResultAsync(ActionContext context)
         {
-            throw new System.NotImplementedException();
+            context.HttpContext.Response.StatusCode = (int)(Success ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
+            await new ObjectResult(this).ExecuteResultAsync(context);
         }
     }
 }

@@ -9,9 +9,7 @@ namespace Phusion2.Application.AutoMapper
     {
         public DomainToViewModelMappingProfile()
         {
-            CreateMap<Customer, CustomerViewModel>()
-                .ConstructUsing(c => new CustomerViewModel(c.FirstName, c.LastName, c.CPF.ToDirtyCPF(), 
-                c.DateOfBirth, c.ProfessionId, null));
+            CreateMap<Customer, CustomerViewModel>();
             CreateMap<Profession, ProfessionViewModel>();
         }
     }

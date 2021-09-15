@@ -3,6 +3,8 @@ using Phusion2.Application.Extensions;
 using Phusion2.Application.Interfaces;
 using Phusion2.Application.Parameters;
 using Phusion2.Application.ViewModels;
+using Phusion2.Domain.Core.Bus;
+using Phusion2.Domain.Core.Notifications;
 using Phusion2.Domain.Interfaces;
 using Phusion2.Domain.Models;
 using System.Collections.Generic;
@@ -15,18 +17,18 @@ namespace Phusion2.Application.Services
         private readonly IMapper _mapper;
         private readonly ICustomerRepository _customerRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IProfessionAppService _professionAppService;
+        private readonly IMediatorHandler _bus;
 
         public CustomerAppService(
             IMapper mapper, 
             ICustomerRepository customerRepository, 
             IUnitOfWork unitOfWork,
-            IProfessionAppService professionAppService)
+            IMediatorHandler mediatorHandler)
         {
             _mapper = mapper;
             _customerRepository = customerRepository;
             _unitOfWork = unitOfWork;
-            _professionAppService = professionAppService;
+            _bus = mediatorHandler;
         }
 
         public async Task<IEnumerable<CustomerViewModel>> GetAsync(CustomerParams cParams)
@@ -42,7 +44,7 @@ namespace Phusion2.Application.Services
 
         public async Task<CustomerViewModel> GetByIdAsync(int id)
         {
-            return _mapper.Map<CustomerViewModel>(await _customerRepository.GetByIdAsync(id));
+            return _mapper.Map<CustomerViewModel>(await _customerRepository.GetOneAsync(x => x.Id == id, "Profession"));
         }
 
         public async Task<CustomerViewModel> RegisterAsync(CustomerViewModel request)
@@ -50,11 +52,13 @@ namespace Phusion2.Application.Services
             if (request.RegistryIsValid())
             {
                 var customer = _mapper.Map<Customer>(request);
-                customer.Profession = _mapper
-                    .Map<Profession>(_professionAppService.GetByIdAsync((int)request.ProfessionId));
 
                 customer = _customerRepository.Create(customer);
-                await _unitOfWork.Commit();
+
+                if (!_unitOfWork.Commit())
+                {
+                    await _bus.RaiseEvent(new DomainNotification("Erro", "Não foi possível criar o cliente, tente novamente mais tarde"));
+                }
 
                 return _mapper.Map<CustomerViewModel>(customer);
             }
@@ -66,7 +70,7 @@ namespace Phusion2.Application.Services
         {
             if (request.UpdateIsValid())
             {
-                var customer = _customerRepository.GetByIdAsync(request.Id).Result;
+                var customer = await _customerRepository.GetOneAsync(x => x.Id == request.Id, "Profession");
 
                 if (customer == null)
                     return null;
@@ -77,11 +81,14 @@ namespace Phusion2.Application.Services
                     request.LastName,
                     request.CPF.ToCleanCPF(),
                     request.DateOfBirth,
-                    request.ProfessionId,
-                    _mapper.Map<Profession>(request.Profession));
+                    request.ProfessionId);
 
                 customer = _customerRepository.Update(customer);
-                await _unitOfWork.Commit();
+
+                if (!_unitOfWork.Commit())
+                {
+                    await _bus.RaiseEvent(new DomainNotification("Erro", "Não foi possível atualizar o cliente, tente novamente mais tarde"));
+                }
 
                 return _mapper.Map<CustomerViewModel>(customer);
             }
@@ -91,12 +98,17 @@ namespace Phusion2.Application.Services
 
         public async Task<int> RemoveAsync(int id)
         {
-            var customer = await _customerRepository.GetByIdAsync(id);
+            var customer = await _customerRepository.GetOneAsync(x => x.Id == id, "Profession");
             if (customer == null)
                 return 0;
 
             if (_mapper.Map<CustomerViewModel>(customer).RemovalIsValid())
                 _customerRepository.DeleteById(id);
+
+            if (!_unitOfWork.Commit())
+            {
+                await _bus.RaiseEvent(new DomainNotification("Id", "Não foi possível remover o cliente, tente novamente mais tarde"));
+            }
 
             return customer.Id;
         }

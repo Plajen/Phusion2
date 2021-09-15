@@ -32,8 +32,9 @@ namespace Phusion2.Domain.Interfaces
             string includeProps = null,
             bool asNoTracking = true);
 
-        Task<TEntity> GetByIdAsync(
-            int id,
+        Task<TEntity> GetOneAsync(
+            Expression<Func<TEntity, bool>> filter = null,
+            string includeProps = null,
             bool asNoTracking = true);
 
         Task<int> GetCountAsync(

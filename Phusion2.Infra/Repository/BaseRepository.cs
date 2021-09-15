@@ -79,9 +79,12 @@ namespace Phusion2.Infra.Repository
             return await GetQueryable(null, skip, take ?? TakeMax, orderBy, includeProps, asNoTracking).ToListAsync();
         }
 
-        public virtual async Task<TEntity> GetByIdAsync(int id, bool asNoTracking = true)
+        public virtual async Task<TEntity> GetOneAsync(
+            Expression<Func<TEntity, bool>> filter = null,
+            string includeProps = null,
+            bool asNoTracking = true)
         {
-            return await Context.Set<TEntity>().FindAsync(id);
+            return await GetQueryable(filter, null, null, null, includeProps, asNoTracking).SingleOrDefaultAsync();
         }
 
         public virtual async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null)

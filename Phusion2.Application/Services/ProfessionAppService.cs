@@ -26,7 +26,7 @@ namespace Phusion2.Application.Services
 
         public async Task<ProfessionViewModel> GetByIdAsync(int id)
         {
-            return _mapper.Map<ProfessionViewModel>(await _professionRepository.GetByIdAsync(id));
+            return _mapper.Map<ProfessionViewModel>(await _professionRepository.GetOneAsync(x => x.Id == id));
         }
     }
 }
