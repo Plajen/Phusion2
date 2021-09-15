@@ -41,6 +41,11 @@ namespace Phusion2.Application.ViewModels
 
         public ValidationResult ValidationResult { get; set; }
 
+        public CustomerViewModel()
+        {
+
+        }
+
         public CustomerViewModel(
             string firstName, 
             string lastName, 

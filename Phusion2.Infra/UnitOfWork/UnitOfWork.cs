@@ -13,9 +13,9 @@ namespace Phusion2.Infra.UnitOfWork
             _context = context;
         }
 
-        public Task Commit()
+        public bool Commit()
         {
-            return _context.SaveChangesAsync();
+            return _context.SaveChanges() > 0;
         }
     }
 }

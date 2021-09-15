@@ -45,11 +45,10 @@ namespace Phusion2.Api
                     Version = "v1"
                 });
             });
+
             services.AddDbContext<Phusion2Context>(cfg =>
             {
-                cfg.UseSqlServer(Configuration.GetConnectionString("Data Source=localhost;Initial Catalog=fagron;User ID=sa;Password=123abc"));
-                cfg.EnableSensitiveDataLogging(true);
-                cfg.LogTo(Console.WriteLine);
+                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
             services.AddAutoMapperSetup();

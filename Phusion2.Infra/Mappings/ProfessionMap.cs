@@ -9,6 +9,11 @@ namespace Phusion2.Infra.Mappings
         public void Configure(EntityTypeBuilder<Profession> builder)
         {
             builder.HasKey(p => p.Id);
+
+            builder.Property(p => p.Description)
+                .HasColumnType("varchar(100)")
+                .HasMaxLength(100)
+                .IsRequired();
         }
     }
 }
