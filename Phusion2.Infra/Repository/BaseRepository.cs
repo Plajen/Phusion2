@@ -74,11 +74,6 @@ namespace Phusion2.Infra.Repository
             return await GetQueryable(filter, skip, take ?? TakeMax, orderBy, includeProps, asNoTracking).ToListAsync();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(int? skip = null, int? take = null, string orderBy = null, string includeProps = null, bool asNoTracking = true)
-        {
-            return await GetQueryable(null, skip, take ?? TakeMax, orderBy, includeProps, asNoTracking).ToListAsync();
-        }
-
         public virtual async Task<TEntity> GetOneAsync(
             Expression<Func<TEntity, bool>> filter = null,
             string includeProps = null,
