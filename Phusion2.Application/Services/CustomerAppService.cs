@@ -7,7 +7,9 @@ using Phusion2.Domain.Core.Bus;
 using Phusion2.Domain.Core.Notifications;
 using Phusion2.Domain.Interfaces;
 using Phusion2.Domain.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Phusion2.Application.Services
@@ -33,8 +35,10 @@ namespace Phusion2.Application.Services
 
         public async Task<IEnumerable<CustomerViewModel>> GetAsync(CustomerParams cParams)
         {
+            Expression<Func<Customer, bool>> filter = cParams.AllNull ? null : cParams.Filter();
+
             return _mapper.Map<IEnumerable<CustomerViewModel>>(await _customerRepository
-                .GetAsync(cParams.Filter(), cParams.Skip, cParams.Take, cParams.OrderBy, cParams.Include));
+                .GetAsync(filter, cParams.Skip, cParams.Take, cParams.OrderBy, cParams.Include));
         }
 
         public async Task<int> GetCountAsync(CustomerParams cParams)

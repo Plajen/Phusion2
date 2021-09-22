@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Phusion2.Application.Interfaces;
-using Phusion2.Application.Parameters;
 using Phusion2.Application.ViewModels;
 using Phusion2.Domain.Interfaces;
 using System.Collections.Generic;
@@ -19,9 +18,9 @@ namespace Phusion2.Application.Services
             _professionRepository = professionRepository;
         }
 
-        public async Task<IEnumerable<ProfessionViewModel>> GetAllAsync(ProfessionParams parameters)
+        public async Task<IEnumerable<ProfessionViewModel>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<ProfessionViewModel>>(await _professionRepository.GetAllAsync(parameters.Skip, parameters.Take, parameters.OrderBy, parameters.Include));
+            return _mapper.Map<IEnumerable<ProfessionViewModel>>(await _professionRepository.GetAsync());
         }
 
         public async Task<ProfessionViewModel> GetByIdAsync(int id)

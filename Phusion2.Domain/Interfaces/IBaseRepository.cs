@@ -25,13 +25,6 @@ namespace Phusion2.Domain.Interfaces
             string includeProps = null,
             bool asNoTracking = true);
 
-        Task<IEnumerable<TEntity>> GetAllAsync(
-            int? skip = null,
-            int? take = null,
-            string orderBy = null,
-            string includeProps = null,
-            bool asNoTracking = true);
-
         Task<TEntity> GetOneAsync(
             Expression<Func<TEntity, bool>> filter = null,
             string includeProps = null,

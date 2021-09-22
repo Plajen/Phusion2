@@ -17,9 +17,12 @@ namespace Phusion2.Application.Parameters
 
         public int Page { get; set; } = 1;
         public int TotalPages { get; private set; }
+        public bool AllNull { get; private set; }
 
         public override Expression<Func<Customer, bool>> Filter()
         {
+            AllNull = false;
+
             var predicate = PredicateBuilder.New<Customer>();
 
             if (Id != null)
@@ -56,6 +59,11 @@ namespace Phusion2.Application.Parameters
             if (ProfessionId != null)
             {
                 predicate = predicate.And(x => x.ProfessionId == ProfessionId);
+            }
+
+            if (predicate.Body.CanReduce == false)
+            {
+                AllNull = true;
             }
 
             return predicate;

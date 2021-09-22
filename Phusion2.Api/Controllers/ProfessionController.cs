@@ -24,10 +24,10 @@ namespace Phusion2.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<BaseResponse<IEnumerable<ProfessionViewModel>>> Get([FromQuery] ProfessionParams parameters)
+        public async Task<BaseResponse<IEnumerable<ProfessionViewModel>>> Get()
         {
-            var data = await _professionAppService.GetAllAsync(parameters);
-            return BaseResponse(data, null, null, parameters);
+            var data = await _professionAppService.GetAllAsync();
+            return BaseResponse(data, null, null, null);
         }
 
         [HttpGet("{id:int}")]

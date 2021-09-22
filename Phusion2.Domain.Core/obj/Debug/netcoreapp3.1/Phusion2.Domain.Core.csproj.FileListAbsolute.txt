@@ -8,13 +8,3 @@ C:\Users\jean_\source\repos\Phusion 2\Phusion.Domain.Core\obj\Debug\netcoreapp3.
 C:\Users\jean_\source\repos\Phusion 2\Phusion.Domain.Core\obj\Debug\netcoreapp3.1\Phusion2.Domain.Core.csproj.CoreCompileInputs.cache
 C:\Users\jean_\source\repos\Phusion 2\Phusion.Domain.Core\obj\Debug\netcoreapp3.1\Phusion2.Domain.Core.dll
 C:\Users\jean_\source\repos\Phusion 2\Phusion.Domain.Core\obj\Debug\netcoreapp3.1\Phusion2.Domain.Core.pdb
-C:\Users\jean_\source\repos\Phusion 2.0\Phusion2.Domain.Core\bin\Debug\netcoreapp3.1\Phusion2.Domain.Core.deps.json
-C:\Users\jean_\source\repos\Phusion 2.0\Phusion2.Domain.Core\bin\Debug\netcoreapp3.1\Phusion2.Domain.Core.dll
-C:\Users\jean_\source\repos\Phusion 2.0\Phusion2.Domain.Core\bin\Debug\netcoreapp3.1\Phusion2.Domain.Core.pdb
-C:\Users\jean_\source\repos\Phusion 2.0\Phusion2.Domain.Core\obj\Debug\netcoreapp3.1\Phusion2.Domain.Core.csproj.AssemblyReference.cache
-C:\Users\jean_\source\repos\Phusion 2.0\Phusion2.Domain.Core\obj\Debug\netcoreapp3.1\Phusion2.Domain.Core.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\jean_\source\repos\Phusion 2.0\Phusion2.Domain.Core\obj\Debug\netcoreapp3.1\Phusion2.Domain.Core.AssemblyInfoInputs.cache
-C:\Users\jean_\source\repos\Phusion 2.0\Phusion2.Domain.Core\obj\Debug\netcoreapp3.1\Phusion2.Domain.Core.AssemblyInfo.cs
-C:\Users\jean_\source\repos\Phusion 2.0\Phusion2.Domain.Core\obj\Debug\netcoreapp3.1\Phusion2.Domain.Core.csproj.CoreCompileInputs.cache
-C:\Users\jean_\source\repos\Phusion 2.0\Phusion2.Domain.Core\obj\Debug\netcoreapp3.1\Phusion2.Domain.Core.dll
-C:\Users\jean_\source\repos\Phusion 2.0\Phusion2.Domain.Core\obj\Debug\netcoreapp3.1\Phusion2.Domain.Core.pdb
